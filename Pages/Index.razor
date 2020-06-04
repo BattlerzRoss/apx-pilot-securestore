@@ -1,0 +1,48 @@
+﻿@page "/"
+
+@using CardAccept.Models
+<h1></h1>
+<ul>
+        @foreach (var todo in savedcards)
+        {
+            <li>
+                <input @bind ="todo.cardNumber" />
+                <input @bind ="todo.expiry " />
+                <input @bind ="todo.cardName" />
+                <input @bind ="todo.cvv"/>
+            </li>
+        }
+</ul>
+
+<h1>Enter Card Details</h1>
+<input placeholder = "" @bind="cardNumberin" />
+<input @bind="expiryin"/>  
+<input @bind="cardNamein" />
+<input @bind="cvvin" />
+
+<button @onclick="HandleValidSubmit">CEnter Card</button>
+
+@code{
+    public bool togglelist = false;
+    private string cardNumberin;
+    private DateTime expiryin;
+    private string cardNamein;
+    private string cvvin;
+
+
+    private CardModel savedcard = new CardModel();
+    private IList<CardModel> savedcards = new List<CardModel>();
+
+    private void HandleValidSubmit()
+    {
+
+        savedcards.Add(new CardModel
+        {
+            cardName = cardNamein,
+            cardNumber = cardNumberin,
+            expiry = expiryin,
+            cvv = cvvin
+        });
+
+    }
+}
